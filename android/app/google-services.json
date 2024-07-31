@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "386170056124",
+    "project_id": "testnotification-67999",
+    "storage_bucket": "testnotification-67999.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386170056124:android:be67a4286ad2f0ef918fb9",
+        "android_client_info": {
+          "package_name": "com.ncapp.notificationcheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfdAX1Mwjg1ifS_mjNn6dWH0F-b-CgSQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
