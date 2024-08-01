@@ -21,6 +21,7 @@ class PushNotificationServices {
       "universe_domain": "googleapis.com"
     };
     List<String> scopes = [
+      "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/firebase.database",
       "https://www.googleapis.com/auth/firebase.messaging"
     ];
