@@ -40,6 +40,9 @@ dependencies:
   http:
   googleapis:
   googleapis_auth:
+  awesome_notifications:
+  shared_preferences:
+  permission_handler: ^11.0.0
 
 dev_dependencies:
   flutter_test:

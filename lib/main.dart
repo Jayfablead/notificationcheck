@@ -1,6 +1,14 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:notificationcheck/firebase_options.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+import 'Notification/push_notification_services.dart';
+
+void main() async {
   runApp(const MyApp());
 }
 
@@ -10,8 +18,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -31,22 +39,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _requestNotificationPermission() async {
+    var status = await Permission.notification.status;
+    if (!status.isGranted) {
+      // Request notification permission if not granted
+      await Permission.notification.request();
+    }
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // getToken();
+  }
+void getToken ()async{
+  PushNotificationServices pushservice = PushNotificationServices();
+  String serverToken = await pushservice.getAccessToken();
+  print(serverToken);
+}
+  // Future<String?> CheckToken() async {
+  //   // FirebaseMessaging.instance.requestPermission();
+  //   FirebaseMessaging _firebaseMessaging =
+  //       FirebaseMessaging.instance; // Change here
+  //   _firebaseMessaging.getToken().then((token) async {
+  //     print('Tkn : ${token}');
+  //     SharedPreferences preftoken = await SharedPreferences.getInstance();
+  //     preftoken.setString("token", token!);
+  //
+  //     // PushNotificationServices.sendNotification(token, context);
+  //   });
+  //   await AwesomeNotifications()
+  //       .isNotificationAllowed()
+  //       .then((isAllowed) async {
+  //     if (!isAllowed) {
+  //       await AwesomeNotifications().requestPermissionToSendNotifications();
+  //     }
+  //   });
+  // }
+
+  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -57,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          getToken();
           debugPrint('Ding Dong Notification Button Clicked');
         },
         child: Icon(Icons.notification_add_sharp),
